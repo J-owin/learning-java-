@@ -1,0 +1,32 @@
+import java.util.Random;
+import java.util.Scanner;
+public class newfile {
+    public static void main(String[] args){
+        //random number guessing game
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+        int guess;
+        int attempts=0;
+        int randomNumber = random.nextInt(1,11  );
+        System.out.println("Number guessing game !");
+        do{
+            System.out.print("enter ur guess!! :");
+            guess = scanner.nextInt();
+            attempts +=1;
+            if(guess < randomNumber){
+                System.out.print("The number is too low!");
+            }
+            else if (guess > randomNumber){
+                System.out.print("The number is too high!!");
+            }
+
+        }while(guess!= randomNumber);
+        System.out.print("You found the number!!! It took u " +attempts + " attempts! " );
+
+
+        scanner.close();
+
+
+
+    }
+}
