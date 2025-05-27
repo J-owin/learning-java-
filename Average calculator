@@ -1,0 +1,29 @@
+import java.util.Scanner;
+public class newfile {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        boolean wish2cont = true;
+        double[] numbers;
+        int size;
+        System.out.print("How many numbers do u want the average of? : ");
+        size = scanner.nextInt();
+
+
+        numbers = new double[size];
+        for(int i=0 ; i < numbers.length; i++ ){
+            System.out.print("Enter the number : ");
+            numbers[i]= scanner.nextInt();
+        }
+        System.out.print(average(numbers));
+    }
+    static double average(double... numbers) {
+        double sum = 0;
+        double  avg = 0;
+        for (double number : numbers) {
+            sum += number;
+            avg = sum/numbers.length;
+        }
+        return avg;
+
+    }
+}
