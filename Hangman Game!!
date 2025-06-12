@@ -1,0 +1,157 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Random;
+
+public class newfile {
+    public static void main(String[] args) {
+        String filepath = "Words";
+        ArrayList<String> words = new ArrayList<>();
+        try(BufferedReader reader = new BufferedReader(new FileReader(filepath))){
+            String line;
+            while((line = reader.readLine()) != null ){
+                words.add(line.trim());
+            }
+
+
+        }
+        catch(FileNotFoundException e){
+            System.out.println("Could not find file ");
+
+        }
+        catch (IOException e) {
+            System.out.println("Something went wrong ");;
+        }
+
+        Random random = new Random();
+
+
+        String word = words.get(random.nextInt(words.size()));
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Character> wordState = new ArrayList<>();
+        ArrayList<Integer> nums = new ArrayList<>();
+
+        int wrongGuess = 0;
+        int score = 6;
+        boolean hintUsed = false;
+
+        for (int i = 0; i < word.length(); i++) {
+            wordState.add('_');
+        }
+
+        System.out.println("********************************");
+        System.out.println("🎉 Welcome to Hangman Art Game! ");
+        System.out.println("********************************");
+
+        while (wrongGuess < 6) {
+            System.out.print("🧩 Word: ");
+            for (char c : wordState) {
+                System.out.print(c + " ");
+            }
+            System.out.println();
+
+            System.out.print("🔤 Guess a letter ( or type "hint" to get a 1 letter hint ) : ");
+            String input = scanner.next().toLowerCase();
+
+            if (input.equals("hint")) {
+                if(!hintUsed){
+                    for(int i = 0 ;i <wordState.size();i++ ){
+                        if(wordState.get(i) == '_' ){
+                            nums.add(i);
+
+
+                        }
+                    }
+
+
+                }
+                int randindex = nums.get(random.nextInt(nums.size()));
+                char letterToReveal = word.charAt(randindex);
+                wordState.set(randindex, letterToReveal);
+
+                continue;
+            }
+
+            char guess = input.charAt(0);
+
+
+
+            if (word.indexOf(guess) >= 0) {
+                System.out.println("✅ Correct GUESS! ");
+                for (int i = 0; i < word.length(); i++) {
+                    if (word.charAt(i) == guess) {
+                        wordState.set(i, guess);
+                    }
+                }
+
+                if (!wordState.contains('_')) {
+                    System.out.println("🏆 YOU WON!! 🎉");
+                    System.out.println("📘 The word was: " + word);
+                    System.out.println("🧮 Your score: " + score + " / 6 ✅");
+                    break;
+                }
+            } else {
+                System.out.println("❌ Wrong guess! 😓");
+                wrongGuess++;
+                score--;
+                System.out.print(getHangmanArt(wrongGuess));
+                System.out.println("📉 Current score: " + score + " / 6");
+            }
+        }
+
+        if (wrongGuess >= 6) {
+            System.out.println("💀 YOU LOST THE GAME! 😭");
+            System.out.println("🛑 GAME OVER!");
+            System.out.println("📕 The word was: " + word);
+            System.out.println("🧮 Your score: " + score + " / 6 ❌ 🤣");
+        }
+
+        scanner.close();
+
+
+    }
+
+    static String getHangmanArt(int wrongGuess) {
+        return switch (wrongGuess) {
+            case 0 -> """
+                      
+                      
+                      
+                      """;
+            case 1 -> """
+                       😐
+                      
+                      
+                      """;
+            case 2 -> """
+                       😐
+                      /
+                      
+                      """;
+            case 3 -> """
+                       😐
+                      /|
+                      
+                      """;
+            case 4 -> """
+                       😐
+                      /|\\
+                      
+                      """;
+            case 5 -> """
+                       😐
+                      /|\\
+                      /
+                      """;
+            case 6 -> """
+                       😵
+                      /|\\
+                      / \\
+                      """;
+            default -> "";
+        };
+    }
+}
