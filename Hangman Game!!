@@ -53,7 +53,7 @@ public class newfile {
             }
             System.out.println();
 
-            System.out.print("🔤 Guess a letter ( or type "hint" to get a 1 letter hint ) : ");
+            System.out.print("🔤 Guess a letter: ");
             String input = scanner.next().toLowerCase();
 
             if (input.equals("hint")) {
@@ -65,15 +65,22 @@ public class newfile {
 
                         }
                     }
+                    hintUsed = true;
+
+                    int randindex = nums.get(random.nextInt(nums.size()));
+                    char letterToReveal = word.charAt(randindex);
+                    wordState.set(randindex, letterToReveal);
 
 
                 }
-                int randindex = nums.get(random.nextInt(nums.size()));
-                char letterToReveal = word.charAt(randindex);
-                wordState.set(randindex, letterToReveal);
+                else{
+                    System.out.println("NO MORE HINTS LEFT FOR YOU 🤣 ");
+                }
+
 
                 continue;
             }
+
 
             char guess = input.charAt(0);
 
@@ -153,5 +160,6 @@ public class newfile {
                       """;
             default -> "";
         };
+
     }
 }
