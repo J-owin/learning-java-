@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class newfile {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String filepath = "C:\\Users\\itsjo\\OneDrive\\Desktop\\Ellie Goulding - Lights (sped up).wav";
-        String filepath2 = "C:\\Users\\itsjo\\OneDrive\\Desktop\\d4vd - Feel It (Animated Lyric Video).wav";
+        String filepath = "Ellie Goulding - Lights (sped up).wav";
+        String filepath2 = "d4vd - Feel It (Animated Lyric Video).wav";
         File file1 = new File(filepath);
         File file2 = new File(filepath2);
         try (AudioInputStream audioStream = AudioSystem.getAudioInputStream(file1)) {
